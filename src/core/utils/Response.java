@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package core.controllers.utils;
+package core.utils;
 
-/**
- *
- * @author edangulo
- */
 public class Response {
-    
+
     private String message;
     private int status;
     private Object object;
@@ -18,7 +10,7 @@ public class Response {
         this.message = message;
         this.status = status;
     }
-    
+
     public Response(String message, int status, Object object) {
         this.message = message;
         this.status = status;
@@ -36,5 +28,5 @@ public class Response {
     public Object getObject() {
         return object;
     }
-    
+
 }

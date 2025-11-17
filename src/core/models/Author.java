@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package core;
+package core.models;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author edangulo
- */
 public class Author extends Person {
-    
+
     private ArrayList<Book> books;
 
     public Author(long id, String firstname, String lastname) {
@@ -22,15 +14,15 @@ public class Author extends Person {
     public ArrayList<Book> getBooks() {
         return books;
     }
-    
+
     public int getBookQuantity() {
         return this.books.size();
     }
-    
+
     public void addBook(Book book) {
         this.books.add(book);
     }
-    
+
     public int getPublisherQuantity() {
         ArrayList<Publisher> publishers = new ArrayList<>();
         for (Book book : this.books) {
@@ -40,5 +32,5 @@ public class Author extends Person {
         }
         return publishers.size();
     }
-    
+
 }

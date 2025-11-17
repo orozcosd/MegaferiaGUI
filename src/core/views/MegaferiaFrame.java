@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package core;
+package core.views;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import core.models.*;
 import java.util.ArrayList;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -1755,25 +1756,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             model.addRow(new Object[]{author.getId(), author.getFullname(), maxPublishers});
         }
     }//GEN-LAST:event_jButton20ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        System.setProperty("flatlaf.useNativeLibrary", "false");
-        
-        try {
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-        } catch (Exception ex) {
-            System.err.println("Failed to initialize LaF");
-        }
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MegaferiaFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

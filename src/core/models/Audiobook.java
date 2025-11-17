@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package core;
+package core.models;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author edangulo
- */
 public class Audiobook extends Book {
-    
+
     private int duration;
     private Narrator narrador;
 
@@ -19,7 +11,7 @@ public class Audiobook extends Book {
         super(title, authors, isbn, genre, format, value, publisher);
         this.duration = duration;
         this.narrador = narrator;
-        
+
         this.narrador.addBook(this);
     }
 
@@ -30,5 +22,5 @@ public class Audiobook extends Book {
     public Narrator getNarrador() {
         return narrador;
     }
-    
+
 }

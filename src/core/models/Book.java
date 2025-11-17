@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package core;
+package core.models;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author edangulo
- */
 public abstract class Book {
-    
+
     protected String title;
     protected ArrayList<Author> authors;
     protected final String isbn;
@@ -28,7 +20,7 @@ public abstract class Book {
         this.format = format;
         this.value = value;
         this.publisher = publisher;
-        
+
         for (Author autor : this.authors) {
             autor.addBook(this);
         }
@@ -62,5 +54,5 @@ public abstract class Book {
     public Publisher getPublisher() {
         return publisher;
     }
-    
+
 }
