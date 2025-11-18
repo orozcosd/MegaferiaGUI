@@ -17,16 +17,6 @@ import java.util.HashSet;
 
 public class BookController {
 
-    private BookStorage bookStorage;
-    private PersonStorage personStorage;
-    private PublisherStorage publisherStorage;
-
-    public BookController() {
-        this.bookStorage = BookStorage.getInstance();
-        this.personStorage = PersonStorage.getInstance();
-        this.publisherStorage = PublisherStorage.getInstance();
-    }
-
     public Response createPrintedBook(String title, long[] authorIds, String isbn, String genre,
                                      String format, double value, String publisherNit,
                                      int pages, int copies) {
@@ -44,10 +34,10 @@ public class BookController {
         }
 
         ArrayList<Author> authors = getAuthorsFromIds(authorIds);
-        Publisher publisher = publisherStorage.getPublisher(publisherNit);
+        Publisher publisher = PublisherStorage.getInstance().getPublisher(publisherNit);
 
         PrintedBook book = new PrintedBook(title, authors, isbn, genre, format, value, publisher, pages, copies);
-        boolean added = bookStorage.addBook(book);
+        boolean added = BookStorage.getInstance().addBook(book);
 
         if (added) {
             return new Response("Libro impreso creado exitosamente", Status.CREATED, book);
@@ -65,7 +55,7 @@ public class BookController {
         }
 
         ArrayList<Author> authors = getAuthorsFromIds(authorIds);
-        Publisher publisher = publisherStorage.getPublisher(publisherNit);
+        Publisher publisher = PublisherStorage.getInstance().getPublisher(publisherNit);
 
         DigitalBook book;
         if (hyperlink == null || hyperlink.trim().isEmpty()) {
@@ -74,7 +64,7 @@ public class BookController {
             book = new DigitalBook(title, authors, isbn, genre, format, value, publisher, hyperlink);
         }
 
-        boolean added = bookStorage.addBook(book);
+        boolean added = BookStorage.getInstance().addBook(book);
 
         if (added) {
             return new Response("Libro digital creado exitosamente", Status.CREATED, book);
@@ -95,7 +85,7 @@ public class BookController {
             return new Response("La duración debe ser mayor que 0", Status.BAD_REQUEST);
         }
 
-        Narrator narrator = (Narrator) personStorage.getPerson(narratorId);
+        Narrator narrator = (Narrator) PersonStorage.getInstance().getPerson(narratorId);
         if (narrator == null) {
             return new Response("Narrador con ID " + narratorId + " no encontrado", Status.NOT_FOUND);
         }
@@ -105,10 +95,10 @@ public class BookController {
         }
 
         ArrayList<Author> authors = getAuthorsFromIds(authorIds);
-        Publisher publisher = publisherStorage.getPublisher(publisherNit);
+        Publisher publisher = PublisherStorage.getInstance().getPublisher(publisherNit);
 
         Audiobook book = new Audiobook(title, authors, isbn, genre, format, value, publisher, duration, narrator);
-        boolean added = bookStorage.addBook(book);
+        boolean added = BookStorage.getInstance().addBook(book);
 
         if (added) {
             return new Response("Audiolibro creado exitosamente", Status.CREATED, book);
@@ -140,7 +130,7 @@ public class BookController {
             return new Response("El precio del libro debe ser mayor que 0", Status.BAD_REQUEST);
         }
 
-        if (bookStorage.getBook(isbn) != null) {
+        if (BookStorage.getInstance().getBook(isbn) != null) {
             return new Response("Ya existe un libro con ISBN " + isbn, Status.BAD_REQUEST);
         }
 
@@ -156,7 +146,7 @@ public class BookController {
         }
 
         for (long authorId : authorIds) {
-            Author author = (Author) personStorage.getPerson(authorId);
+            Author author = (Author) PersonStorage.getInstance().getPerson(authorId);
             if (author == null) {
                 return new Response("Autor con ID " + authorId + " no encontrado", Status.NOT_FOUND);
             }
@@ -165,7 +155,7 @@ public class BookController {
             }
         }
 
-        Publisher publisher = publisherStorage.getPublisher(publisherNit);
+        Publisher publisher = PublisherStorage.getInstance().getPublisher(publisherNit);
         if (publisher == null) {
             return new Response("Editorial con NIT " + publisherNit + " no encontrada", Status.NOT_FOUND);
         }
@@ -176,7 +166,7 @@ public class BookController {
     private ArrayList<Author> getAuthorsFromIds(long[] authorIds) {
         ArrayList<Author> authors = new ArrayList<>();
         for (long authorId : authorIds) {
-            authors.add((Author) personStorage.getPerson(authorId));
+            authors.add((Author) PersonStorage.getInstance().getPerson(authorId));
         }
         return authors;
     }

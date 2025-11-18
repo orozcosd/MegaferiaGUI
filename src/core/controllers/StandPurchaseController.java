@@ -10,14 +10,6 @@ import java.util.HashSet;
 
 public class StandPurchaseController {
 
-    private StandStorage standStorage;
-    private PublisherStorage publisherStorage;
-
-    public StandPurchaseController() {
-        this.standStorage = StandStorage.getInstance();
-        this.publisherStorage = PublisherStorage.getInstance();
-    }
-
     public Response purchaseStands(long[] standIds, String[] publisherNits) {
         if (standIds == null || standIds.length == 0) {
             return new Response("Debe seleccionar al menos un stand", Status.BAD_REQUEST);
@@ -42,23 +34,23 @@ public class StandPurchaseController {
         }
 
         for (long standId : standIds) {
-            Stand stand = standStorage.getStand(standId);
+            Stand stand = StandStorage.getInstance().getStand(standId);
             if (stand == null) {
                 return new Response("Stand con ID " + standId + " no encontrado", Status.NOT_FOUND);
             }
         }
 
         for (String nit : publisherNits) {
-            Publisher publisher = publisherStorage.getPublisher(nit);
+            Publisher publisher = PublisherStorage.getInstance().getPublisher(nit);
             if (publisher == null) {
                 return new Response("Editorial con NIT " + nit + " no encontrada", Status.NOT_FOUND);
             }
         }
 
         for (long standId : standIds) {
-            Stand stand = standStorage.getStand(standId);
+            Stand stand = StandStorage.getInstance().getStand(standId);
             for (String nit : publisherNits) {
-                Publisher publisher = publisherStorage.getPublisher(nit);
+                Publisher publisher = PublisherStorage.getInstance().getPublisher(nit);
                 stand.addPublisher(publisher);
                 publisher.addStand(stand);
             }

@@ -13,14 +13,6 @@ import java.util.ArrayList;
 
 public class QueryController {
 
-    private BookStorage bookStorage;
-    private PersonStorage personStorage;
-
-    public QueryController() {
-        this.bookStorage = BookStorage.getInstance();
-        this.personStorage = PersonStorage.getInstance();
-    }
-
     public Response getBooksByType(String bookType) {
         Class<?> type;
 
@@ -38,7 +30,7 @@ public class QueryController {
                 return new Response("Tipo de libro inválido. Los tipos válidos son: printed, digital, audiobook", Status.BAD_REQUEST);
         }
 
-        ArrayList<Book> books = bookStorage.getBooksByType(type);
+        ArrayList<Book> books = BookStorage.getInstance().getBooksByType(type);
 
         if (books.isEmpty()) {
             return new Response("No se encontraron libros para el tipo: " + bookType, Status.NO_CONTENT);
@@ -48,7 +40,7 @@ public class QueryController {
     }
 
     public Response getBooksByAuthor(long authorId) {
-        Author author = (Author) personStorage.getPerson(authorId);
+        Author author = (Author) PersonStorage.getInstance().getPerson(authorId);
 
         if (author == null) {
             return new Response("Autor con ID " + authorId + " no encontrado", Status.NOT_FOUND);
@@ -58,7 +50,7 @@ public class QueryController {
             return new Response("La persona con ID " + authorId + " no es un autor", Status.BAD_REQUEST);
         }
 
-        ArrayList<Book> books = bookStorage.getBooksByAuthor(author);
+        ArrayList<Book> books = BookStorage.getInstance().getBooksByAuthor(author);
 
         if (books.isEmpty()) {
             return new Response("No se encontraron libros para el autor: " + author.getFullname(), Status.NO_CONTENT);
@@ -72,7 +64,7 @@ public class QueryController {
             return new Response("El formato no puede estar vacío", Status.BAD_REQUEST);
         }
 
-        ArrayList<Book> books = bookStorage.getBooksByFormat(format);
+        ArrayList<Book> books = BookStorage.getInstance().getBooksByFormat(format);
 
         if (books.isEmpty()) {
             return new Response("No se encontraron libros para el formato: " + format, Status.NO_CONTENT);
@@ -82,7 +74,7 @@ public class QueryController {
     }
 
     public Response getAllBooks() {
-        ArrayList<Book> books = bookStorage.getAllBooks();
+        ArrayList<Book> books = BookStorage.getInstance().getAllBooks();
 
         if (books.isEmpty()) {
             return new Response("No se encontraron libros", Status.NO_CONTENT);
@@ -92,7 +84,7 @@ public class QueryController {
     }
 
     public Response getAuthorsWithMostBooksInDifferentPublishers() {
-        ArrayList<Author> authors = personStorage.getAuthors();
+        ArrayList<Author> authors = PersonStorage.getInstance().getAuthors();
 
         if (authors.isEmpty()) {
             return new Response("No se encontraron autores", Status.NO_CONTENT);

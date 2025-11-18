@@ -9,12 +9,6 @@ import java.util.ArrayList;
 
 public class StandController {
 
-    private StandStorage storage;
-
-    public StandController() {
-        this.storage = StandStorage.getInstance();
-    }
-
     public Response createStand(long id, double price) {
         if (!Validator.isValidId(id)) {
             return new Response("El ID del stand debe ser >= 0 y tener como máximo 15 dígitos", Status.BAD_REQUEST);
@@ -24,12 +18,12 @@ public class StandController {
             return new Response("El precio del stand debe ser mayor que 0", Status.BAD_REQUEST);
         }
 
-        if (storage.getStand(id) != null) {
+        if (StandStorage.getInstance().getStand(id) != null) {
             return new Response("Ya existe un stand con ID " + id, Status.BAD_REQUEST);
         }
 
         Stand stand = new Stand(id, price);
-        boolean added = storage.addStand(stand);
+        boolean added = StandStorage.getInstance().addStand(stand);
 
         if (added) {
             return new Response("Stand creado exitosamente", Status.CREATED, stand);
@@ -39,7 +33,7 @@ public class StandController {
     }
 
     public Response getAllStands() {
-        ArrayList<Stand> stands = storage.getAllStands();
+        ArrayList<Stand> stands = StandStorage.getInstance().getAllStands();
 
         if (stands.isEmpty()) {
             return new Response("No se encontraron stands", Status.NO_CONTENT);
@@ -49,7 +43,7 @@ public class StandController {
     }
 
     public Response getStandById(long id) {
-        Stand stand = storage.getStand(id);
+        Stand stand = StandStorage.getInstance().getStand(id);
 
         if (stand == null) {
             return new Response("Stand no encontrado", Status.NOT_FOUND);

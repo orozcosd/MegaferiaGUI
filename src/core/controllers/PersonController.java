@@ -12,12 +12,6 @@ import java.util.ArrayList;
 
 public class PersonController {
 
-    private PersonStorage storage;
-
-    public PersonController() {
-        this.storage = PersonStorage.getInstance();
-    }
-
     public Response createAuthor(long id, String firstname, String lastname) {
         if (!Validator.isValidId(id)) {
             return new Response("El ID de la persona debe ser >= 0 y tener como máximo 15 dígitos", Status.BAD_REQUEST);
@@ -31,12 +25,12 @@ public class PersonController {
             return new Response("El apellido no puede estar vacío", Status.BAD_REQUEST);
         }
 
-        if (storage.getPerson(id) != null) {
+        if (PersonStorage.getInstance().getPerson(id) != null) {
             return new Response("Ya existe una persona con ID " + id, Status.BAD_REQUEST);
         }
 
         Author author = new Author(id, firstname, lastname);
-        boolean added = storage.addPerson(author);
+        boolean added = PersonStorage.getInstance().addPerson(author);
 
         if (added) {
             return new Response("Autor creado exitosamente", Status.CREATED, author);
@@ -58,12 +52,12 @@ public class PersonController {
             return new Response("El apellido no puede estar vacío", Status.BAD_REQUEST);
         }
 
-        if (storage.getPerson(id) != null) {
+        if (PersonStorage.getInstance().getPerson(id) != null) {
             return new Response("Ya existe una persona con ID " + id, Status.BAD_REQUEST);
         }
 
         Manager manager = new Manager(id, firstname, lastname);
-        boolean added = storage.addPerson(manager);
+        boolean added = PersonStorage.getInstance().addPerson(manager);
 
         if (added) {
             return new Response("Gerente creado exitosamente", Status.CREATED, manager);
@@ -85,12 +79,12 @@ public class PersonController {
             return new Response("El apellido no puede estar vacío", Status.BAD_REQUEST);
         }
 
-        if (storage.getPerson(id) != null) {
+        if (PersonStorage.getInstance().getPerson(id) != null) {
             return new Response("Ya existe una persona con ID " + id, Status.BAD_REQUEST);
         }
 
         Narrator narrator = new Narrator(id, firstname, lastname);
-        boolean added = storage.addPerson(narrator);
+        boolean added = PersonStorage.getInstance().addPerson(narrator);
 
         if (added) {
             return new Response("Narrador creado exitosamente", Status.CREATED, narrator);
@@ -100,7 +94,7 @@ public class PersonController {
     }
 
     public Response getAllPersons() {
-        ArrayList<Person> persons = storage.getAllPersons();
+        ArrayList<Person> persons = PersonStorage.getInstance().getAllPersons();
 
         if (persons.isEmpty()) {
             return new Response("No se encontraron personas", Status.NO_CONTENT);
@@ -110,7 +104,7 @@ public class PersonController {
     }
 
     public Response getPersonById(long id) {
-        Person person = storage.getPerson(id);
+        Person person = PersonStorage.getInstance().getPerson(id);
 
         if (person == null) {
             return new Response("Persona no encontrada", Status.NOT_FOUND);
@@ -120,7 +114,7 @@ public class PersonController {
     }
 
     public Response getAllAuthors() {
-        ArrayList<Author> authors = storage.getAuthors();
+        ArrayList<Author> authors = PersonStorage.getInstance().getAuthors();
 
         if (authors.isEmpty()) {
             return new Response("No se encontraron autores", Status.NO_CONTENT);
@@ -130,7 +124,7 @@ public class PersonController {
     }
 
     public Response getAllManagers() {
-        ArrayList<Manager> managers = storage.getManagers();
+        ArrayList<Manager> managers = PersonStorage.getInstance().getManagers();
 
         if (managers.isEmpty()) {
             return new Response("No se encontraron gerentes", Status.NO_CONTENT);
@@ -140,7 +134,7 @@ public class PersonController {
     }
 
     public Response getAllNarrators() {
-        ArrayList<Narrator> narrators = storage.getNarrators();
+        ArrayList<Narrator> narrators = PersonStorage.getInstance().getNarrators();
 
         if (narrators.isEmpty()) {
             return new Response("No se encontraron narradores", Status.NO_CONTENT);
