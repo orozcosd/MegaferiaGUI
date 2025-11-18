@@ -3,7 +3,7 @@ package core.models.storage;
 import core.models.Publisher;
 import java.util.ArrayList;
 
-public class PublisherStorage {
+public class PublisherStorage implements IPublisherStorage {
 
     private static PublisherStorage instance;
 

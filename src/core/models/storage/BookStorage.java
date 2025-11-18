@@ -4,7 +4,7 @@ import core.models.Book;
 import core.models.Author;
 import java.util.ArrayList;
 
-public class BookStorage {
+public class BookStorage implements IBookStorage {
 
     private static BookStorage instance;
 

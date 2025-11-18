@@ -3,7 +3,7 @@ package core.models.storage;
 import core.models.Stand;
 import java.util.ArrayList;
 
-public class StandStorage {
+public class StandStorage implements IStandStorage {
 
     private static StandStorage instance;
 

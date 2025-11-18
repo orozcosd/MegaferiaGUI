@@ -6,7 +6,7 @@ import core.models.Manager;
 import core.models.Narrator;
 import java.util.ArrayList;
 
-public class PersonStorage {
+public class PersonStorage implements IPersonStorage {
 
     private static PersonStorage instance;
 
