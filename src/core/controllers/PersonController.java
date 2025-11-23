@@ -9,6 +9,7 @@ import core.utils.Response;
 import core.utils.Status;
 import core.utils.Validator;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class PersonController {
 
@@ -100,6 +101,8 @@ public class PersonController {
             return new Response("No se encontraron personas", Status.NO_CONTENT);
         }
 
+        persons.sort(Comparator.comparingLong(Person::getId));
+
         return new Response("Personas obtenidas exitosamente", Status.OK, persons);
     }
 
@@ -120,6 +123,8 @@ public class PersonController {
             return new Response("No se encontraron autores", Status.NO_CONTENT);
         }
 
+        authors.sort(Comparator.comparingLong(Author::getId));
+
         return new Response("Autores obtenidos exitosamente", Status.OK, authors);
     }
 
@@ -130,6 +135,8 @@ public class PersonController {
             return new Response("No se encontraron gerentes", Status.NO_CONTENT);
         }
 
+        managers.sort(Comparator.comparingLong(Manager::getId));
+
         return new Response("Gerentes obtenidos exitosamente", Status.OK, managers);
     }
 
@@ -139,6 +146,8 @@ public class PersonController {
         if (narrators.isEmpty()) {
             return new Response("No se encontraron narradores", Status.NO_CONTENT);
         }
+
+        narrators.sort(Comparator.comparingLong(Narrator::getId));
 
         return new Response("Narradores obtenidos exitosamente", Status.OK, narrators);
     }

@@ -6,6 +6,7 @@ import core.utils.Response;
 import core.utils.Status;
 import core.utils.Validator;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class StandController {
 
@@ -38,6 +39,8 @@ public class StandController {
         if (stands.isEmpty()) {
             return new Response("No se encontraron stands", Status.NO_CONTENT);
         }
+
+        stands.sort(Comparator.comparingLong(Stand::getId));
 
         return new Response("Stands obtenidos exitosamente", Status.OK, stands);
     }

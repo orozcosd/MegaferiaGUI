@@ -10,6 +10,7 @@ import core.models.storage.PersonStorage;
 import core.utils.Response;
 import core.utils.Status;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class QueryController {
 
@@ -36,6 +37,8 @@ public class QueryController {
             return new Response("No se encontraron libros para el tipo: " + bookType, Status.NO_CONTENT);
         }
 
+        books.sort(Comparator.comparing(Book::getIsbn));
+
         return new Response("Libros obtenidos exitosamente", Status.OK, books);
     }
 
@@ -56,6 +59,8 @@ public class QueryController {
             return new Response("No se encontraron libros para el autor: " + author.getFullname(), Status.NO_CONTENT);
         }
 
+        books.sort(Comparator.comparing(Book::getIsbn));
+
         return new Response("Libros obtenidos exitosamente", Status.OK, books);
     }
 
@@ -70,6 +75,8 @@ public class QueryController {
             return new Response("No se encontraron libros para el formato: " + format, Status.NO_CONTENT);
         }
 
+        books.sort(Comparator.comparing(Book::getIsbn));
+
         return new Response("Libros obtenidos exitosamente", Status.OK, books);
     }
 
@@ -80,6 +87,8 @@ public class QueryController {
             return new Response("No se encontraron libros", Status.NO_CONTENT);
         }
 
+        books.sort(Comparator.comparing(Book::getIsbn));
+
         return new Response("Libros obtenidos exitosamente", Status.OK, books);
     }
 
@@ -89,6 +98,8 @@ public class QueryController {
         if (authors.isEmpty()) {
             return new Response("No se encontraron autores", Status.NO_CONTENT);
         }
+
+        authors.sort(Comparator.comparingLong(Author::getId));
 
         return new Response("Autores obtenidos exitosamente", Status.OK, authors);
     }

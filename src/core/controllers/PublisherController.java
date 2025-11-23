@@ -8,6 +8,7 @@ import core.utils.Response;
 import core.utils.Status;
 import core.utils.Validator;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class PublisherController {
 
@@ -53,6 +54,8 @@ public class PublisherController {
         if (publishers.isEmpty()) {
             return new Response("No se encontraron editoriales", Status.NO_CONTENT);
         }
+
+        publishers.sort(Comparator.comparing(Publisher::getNit));
 
         return new Response("Editoriales obtenidas exitosamente", Status.OK, publishers);
     }
