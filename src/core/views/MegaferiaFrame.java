@@ -5,6 +5,7 @@
 package core.views;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import core.controllers.PersonController;
 import core.controllers.StandController;
 import core.models.*;
 import core.utils.Response;
@@ -29,7 +30,8 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private ArrayList<Book> books;
 
     private StandController standController;
-    
+    private PersonController personController;
+
     /**
      * Creates new form MegaferiaFrame
      */
@@ -43,6 +45,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         this.publishers = new ArrayList<>();
         this.books = new ArrayList<>();
         this.standController = new StandController();
+        this.personController = new PersonController();
     }
 
     /**
@@ -65,13 +68,13 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
+        crearPersonaId = new javax.swing.JTextField();
+        crearPersonaNombre = new javax.swing.JTextField();
+        crearAutor = new javax.swing.JButton();
+        crearPersonaApellido = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
+        crearGerente = new javax.swing.JButton();
+        crearNarrador = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
@@ -140,8 +143,8 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         jButton13 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jButton14 = new javax.swing.JButton();
+        tablaStands = new javax.swing.JTable();
+        consultarStands = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
@@ -211,54 +214,54 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel4.setText("ID");
 
-        jTextField3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jTextField3.setToolTipText("");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        crearPersonaId.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        crearPersonaId.setToolTipText("");
+        crearPersonaId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                crearPersonaIdActionPerformed(evt);
             }
         });
 
-        jTextField4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jTextField4.setToolTipText("");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        crearPersonaNombre.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        crearPersonaNombre.setToolTipText("");
+        crearPersonaNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                crearPersonaNombreActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton2.setText("Crear Autor");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        crearAutor.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        crearAutor.setText("Crear Autor");
+        crearAutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                crearAutorActionPerformed(evt);
             }
         });
 
-        jTextField5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jTextField5.setToolTipText("");
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        crearPersonaApellido.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        crearPersonaApellido.setToolTipText("");
+        crearPersonaApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                crearPersonaApellidoActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel5.setText("Apellido");
 
-        jButton16.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton16.setText("Crear Gerente");
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
+        crearGerente.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        crearGerente.setText("Crear Gerente");
+        crearGerente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
+                crearGerenteActionPerformed(evt);
             }
         });
 
-        jButton17.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton17.setText("Crear Narrador");
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
+        crearNarrador.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        crearNarrador.setText("Crear Narrador");
+        crearNarrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
+                crearNarradorActionPerformed(evt);
             }
         });
 
@@ -274,23 +277,23 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(21, 21, 21)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(crearPersonaApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                     .addComponent(jLabel4)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(crearPersonaId, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                     .addComponent(jLabel3)
                                     .addGap(21, 21, 21)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(crearPersonaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(162, 162, 162)
-                        .addComponent(jButton2)
+                        .addComponent(crearAutor)
                         .addGap(56, 56, 56)
-                        .addComponent(jButton16)
+                        .addComponent(crearGerente)
                         .addGap(54, 54, 54)
-                        .addComponent(jButton17)))
+                        .addComponent(crearNarrador)))
                 .addContainerGap(138, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -299,20 +302,20 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGap(153, 153, 153)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(crearPersonaId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(crearPersonaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(crearPersonaApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(crearAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(crearNarrador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(crearGerente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(219, Short.MAX_VALUE))
         );
 
@@ -975,7 +978,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Show Personas", jPanel8);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tablaStands.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -994,14 +997,14 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane6.setViewportView(jTable3);
+        jScrollPane6.setViewportView(tablaStands);
 
-        jButton14.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton14.setText("Consultar");
-        jButton14.setToolTipText("");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        consultarStands.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        consultarStands.setText("Consultar");
+        consultarStands.setToolTipText("");
+        consultarStands.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                consultarStandsActionPerformed(evt);
             }
         });
 
@@ -1016,7 +1019,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(361, 361, 361)
-                        .addComponent(jButton14)))
+                        .addComponent(consultarStands)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -1025,7 +1028,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(consultarStands, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
 
@@ -1283,17 +1286,17 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_crearStandIdActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void crearPersonaIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearPersonaIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_crearPersonaIdActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void crearPersonaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearPersonaNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_crearPersonaNombreActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void crearPersonaApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearPersonaApellidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_crearPersonaApellidoActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
@@ -1408,39 +1411,63 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_crearStandActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        long id = Long.parseLong(jTextField3.getText());
-        String firstname = jTextField4.getText();
-        String lastname = jTextField5.getText();
-        
-        this.authors.add(new Author(id, firstname, lastname));
-        
-        jComboBox3.addItem(id + " - " + firstname + " " + lastname);
-        jComboBox10.addItem(id + " - " + firstname + " " + lastname);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void crearAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearAutorActionPerformed
+        String idText = crearPersonaId.getText();
+        String firstname = crearPersonaNombre.getText();
+        String lastname = crearPersonaApellido.getText();
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        // TODO add your handling code here:
-        long id = Long.parseLong(jTextField3.getText());
-        String firstname = jTextField4.getText();
-        String lastname = jTextField5.getText();
-        
-        this.managers.add(new Manager(id, firstname, lastname));
-        
-        jComboBox1.addItem(id + " - " + firstname + " " + lastname);
-    }//GEN-LAST:event_jButton16ActionPerformed
+        Response response = personController.createAuthor(idText, firstname, lastname);
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        // TODO add your handling code here:
-        long id = Long.parseLong(jTextField3.getText());
-        String firstname = jTextField4.getText();
-        String lastname = jTextField5.getText();
+        if (response.getStatus() == Status.CREATED) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            Author author = (Author) response.getObject();
+            jComboBox3.addItem(author.getId() + " - " + author.getFullname());
+            jComboBox10.addItem(author.getId() + " - " + author.getFullname());
+            crearPersonaId.setText("");
+            crearPersonaNombre.setText("");
+            crearPersonaApellido.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_crearAutorActionPerformed
+
+    private void crearGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearGerenteActionPerformed
+        String idText = crearPersonaId.getText();
+        String firstname = crearPersonaNombre.getText();
+        String lastname = crearPersonaApellido.getText();
         
-        this.narrators.add(new Narrator(id, firstname, lastname));
+        Response response = personController.createManager(idText, firstname, lastname);
         
-        jComboBox6.addItem(id + " - " + firstname + " " + lastname);
-    }//GEN-LAST:event_jButton17ActionPerformed
+        if (response.getStatus() == Status.CREATED) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            Manager manager = (Manager) response.getObject();
+            jComboBox1.addItem(manager.getId() + " - " + manager.getFullname());
+            crearPersonaId.setText("");
+            crearPersonaNombre.setText("");
+            crearPersonaApellido.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_crearGerenteActionPerformed
+
+    private void crearNarradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearNarradorActionPerformed
+        String idText = crearPersonaId.getText();
+        String firstname = crearPersonaNombre.getText();
+        String lastname = crearPersonaApellido.getText();
+        
+        Response response = personController.createNarrator(idText, firstname, lastname);
+        
+        if (response.getStatus() == Status.CREATED) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            Narrator narrator = (Narrator) response.getObject();
+            jComboBox6.addItem(narrator.getId() + " - " + narrator.getFullname());
+            crearPersonaId.setText("");
+            crearPersonaNombre.setText("");
+            crearPersonaApellido.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_crearNarradorActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -1616,11 +1643,19 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton13ActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+    private void consultarStandsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarStandsActionPerformed
+        Response response = standController.getAllStands();
+
+        DefaultTableModel model = (DefaultTableModel) tablaStands.getModel();
         model.setRowCount(0);
-        for (Stand stand : this.stands) {
+
+        if (response.getStatus() == Status.NO_CONTENT) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        ArrayList<Stand> stands = (ArrayList<Stand>) response.getObject();
+        for (Stand stand : stands) {
             String publishers = "";
             if (stand.getPublisherQuantity() > 0) {
                 publishers += stand.getPublishers().get(0).getName();
@@ -1630,7 +1665,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
             }
             model.addRow(new Object[]{stand.getId(), stand.getPrice(), stand.getPublisherQuantity() > 0 ? "Si" : "No", publishers});
         }
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_consultarStandsActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
@@ -1772,6 +1807,13 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton20ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton consultarStands;
+    private javax.swing.JButton crearAutor;
+    private javax.swing.JButton crearGerente;
+    private javax.swing.JButton crearNarrador;
+    private javax.swing.JTextField crearPersonaApellido;
+    private javax.swing.JTextField crearPersonaId;
+    private javax.swing.JTextField crearPersonaNombre;
     private javax.swing.JButton crearStand;
     private javax.swing.JTextField crearStandId;
     private javax.swing.JTextField crearStandPrecio;
@@ -1779,13 +1821,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1860,7 +1898,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
@@ -1873,12 +1910,10 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tablaStands;
     // End of variables declaration//GEN-END:variables
 }
