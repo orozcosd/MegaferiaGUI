@@ -42,6 +42,10 @@ public class Publisher {
         return this.stands.size();
     }
 
+    public ArrayList<Book> getBooks() {
+        return this.books;
+    }
+
     public void addBook(Book book) {
         this.books.add(book);
     }

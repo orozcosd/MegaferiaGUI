@@ -5,8 +5,10 @@ import core.models.Audiobook;
 import core.models.Book;
 import core.models.DigitalBook;
 import core.models.PrintedBook;
+import core.models.Publisher;
 import core.models.storage.BookStorage;
 import core.models.storage.PersonStorage;
+import core.models.storage.PublisherStorage;
 import core.utils.Response;
 import core.utils.Status;
 import java.util.ArrayList;
@@ -100,16 +102,61 @@ public class QueryController {
         return new Response("Libros obtenidos exitosamente", Status.OK, books);
     }
 
-    public Response getAuthorsWithMostBooksInDifferentPublishers() {
-        ArrayList<Author> authors = PersonStorage.getInstance().getAuthors();
+    public Response getAuthorsDifferentPublishers() {
+        ArrayList<Publisher> todasEditoriales = PublisherStorage.getInstance().getAllPublishers();
 
-        if (authors.isEmpty()) {
-            return new Response("No se encontraron autores", Status.NO_CONTENT);
+        if (todasEditoriales.isEmpty()) {
+            return new Response("No se encontraron editoriales", Status.NO_CONTENT);
         }
 
-        authors.sort(Comparator.comparingLong(Author::getId));
+        ArrayList<Author> autoresConMasLibros = new ArrayList<>();
 
-        return new Response("Autores obtenidos exitosamente", Status.OK, authors);
+        for (Publisher editorial : todasEditoriales) {
+            ArrayList<Book> librosEditorial = editorial.getBooks();
+
+            if (librosEditorial.isEmpty()) {
+                continue;
+            }
+
+            ArrayList<Author> autoresEnEditorial = new ArrayList<>();
+            ArrayList<Integer> conteoLibros = new ArrayList<>();
+
+            for (Book libro : librosEditorial) {
+                for (Author autor : libro.getAuthors()) {
+                    int indice = autoresEnEditorial.indexOf(autor);
+                    if (indice == -1) {
+                        autoresEnEditorial.add(autor);
+                        conteoLibros.add(1);
+                    } else {
+                        conteoLibros.set(indice, conteoLibros.get(indice) + 1);
+                    }
+                }
+            }
+
+            int maxLibros = -1;
+            for (int conteo : conteoLibros) {
+                if (conteo > maxLibros) {
+                    maxLibros = conteo;
+                }
+            }
+
+            for (int i = 0; i < autoresEnEditorial.size(); i++) {
+                if (conteoLibros.get(i) == maxLibros) {
+                    Author autor = autoresEnEditorial.get(i);
+                    if (!autoresConMasLibros.contains(autor)) {
+                        autoresConMasLibros.add(autor);
+                    }
+                }
+            }
+        }
+
+        if (autoresConMasLibros.isEmpty()) {
+            return new Response("No se encontraron autores con libros", Status.NO_CONTENT);
+        }
+
+        autoresConMasLibros.sort(Comparator.comparingLong(Author::getId));
+
+        return new Response("Autores obtenidos exitosamente", Status.OK, autoresConMasLibros);
     }
 
 }
