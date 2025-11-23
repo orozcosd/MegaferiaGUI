@@ -1505,7 +1505,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
     private void agregarAutorLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarAutorLibroActionPerformed
         String author = crearLibroAutores.getItemAt(crearLibroAutores.getSelectedIndex());
-        libroAutores.append(author + "\n");
+        if (!libroAutores.getText().contains(author)) {
+            libroAutores.append(author + "\n");
+        }
     }//GEN-LAST:event_agregarAutorLibroActionPerformed
 
     private void eliminarAutorLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarAutorLibroActionPerformed
@@ -1567,7 +1569,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
     private void agregarStandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarStandActionPerformed
         String stand = comprarStandId.getItemAt(comprarStandId.getSelectedIndex());
-        comprarIdsStands.append(stand + "\n");
+        if (!comprarIdsStands.getText().contains(stand)) {
+            comprarIdsStands.append(stand + "\n");
+        }
     }//GEN-LAST:event_agregarStandActionPerformed
 
     private void eliminarStandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarStandActionPerformed
@@ -1577,7 +1581,9 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
     private void agregarEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarEditorialActionPerformed
         String publisher = comprarStandEditorial.getItemAt(comprarStandEditorial.getSelectedIndex());
-        comprarStandEditoriales.append(publisher + "\n");
+        if (!comprarStandEditoriales.getText().contains(publisher)) {
+            comprarStandEditoriales.append(publisher + "\n");
+        }
     }//GEN-LAST:event_agregarEditorialActionPerformed
 
     private void eliminarEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarEditorialActionPerformed
