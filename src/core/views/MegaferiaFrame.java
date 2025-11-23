@@ -139,8 +139,8 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton13 = new javax.swing.JButton();
+        tablaPersonas = new javax.swing.JTable();
+        consultarPersonas = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tablaStands = new javax.swing.JTable();
@@ -923,7 +923,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Show Editoriales", jPanel7);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPersonas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -942,13 +942,13 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTable2);
+        jScrollPane5.setViewportView(tablaPersonas);
 
-        jButton13.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton13.setText("Consultar");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        consultarPersonas.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        consultarPersonas.setText("Consultar");
+        consultarPersonas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                consultarPersonasActionPerformed(evt);
             }
         });
 
@@ -963,7 +963,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(361, 361, 361)
-                        .addComponent(jButton13)))
+                        .addComponent(consultarPersonas)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
@@ -972,7 +972,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(consultarPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
 
@@ -1628,20 +1628,28 @@ public class MegaferiaFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+    private void consultarPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarPersonasActionPerformed
+        Response response = personController.getAllPersons();
+
+        DefaultTableModel model = (DefaultTableModel) tablaPersonas.getModel();
         model.setRowCount(0);
-        for (Author author : this.authors) {
-            model.addRow(new Object[]{author.getId(), author.getFullname(), "Autor", "-", author.getBookQuantity()});
+
+        if (response.getStatus() == Status.NO_CONTENT) {
+            JOptionPane.showMessageDialog(this, response.getMessage(), "Información", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
-        for (Manager manager : this.managers) {
-            model.addRow(new Object[]{manager.getId(), manager.getFullname(), "Gerente", manager.getPublisher().getName(), 0});
+
+        ArrayList<Person> persons = (ArrayList<Person>) response.getObject();
+        for (Person person : persons) {
+            if (person instanceof Author author) {
+                model.addRow(new Object[]{author.getId(), author.getFullname(), "Autor", "-", author.getBookQuantity()});
+            } else if (person instanceof Manager manager) {
+                model.addRow(new Object[]{manager.getId(), manager.getFullname(), "Gerente", manager.getPublisher() != null ? manager.getPublisher().getName() : "-", 0});
+            } else if (person instanceof Narrator narrator) {
+                model.addRow(new Object[]{narrator.getId(), narrator.getFullname(), "Narrador", "-", narrator.getBookQuantity()});
+            }
         }
-        for (Narrator narrator : this.narrators) {
-            model.addRow(new Object[]{narrator.getId(), narrator.getFullname(), "Narrador", "-", narrator.getBookQuantity()});
-        }
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_consultarPersonasActionPerformed
 
     private void consultarStandsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarStandsActionPerformed
         Response response = standController.getAllStands();
@@ -1807,6 +1815,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton20ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton consultarPersonas;
     private javax.swing.JButton consultarStands;
     private javax.swing.JButton crearAutor;
     private javax.swing.JButton crearGerente;
@@ -1820,7 +1829,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
@@ -1897,7 +1905,6 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
@@ -1914,6 +1921,7 @@ public class MegaferiaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tablaPersonas;
     private javax.swing.JTable tablaStands;
     // End of variables declaration//GEN-END:variables
 }
