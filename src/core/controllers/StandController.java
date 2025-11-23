@@ -10,7 +10,22 @@ import java.util.Comparator;
 
 public class StandController {
 
-    public Response createStand(long id, double price) {
+    public Response createStand(String idText, String priceText) {
+        long id;
+        double price;
+
+        try {
+            id = Long.parseLong(idText);
+        } catch (NumberFormatException e) {
+            return new Response("El ID debe ser un número válido", Status.BAD_REQUEST);
+        }
+
+        try {
+            price = Double.parseDouble(priceText);
+        } catch (NumberFormatException e) {
+            return new Response("El precio debe ser un número válido", Status.BAD_REQUEST);
+        }
+
         if (!Validator.isValidId(id)) {
             return new Response("El ID del stand debe ser >= 0 y tener como máximo 15 dígitos", Status.BAD_REQUEST);
         }
