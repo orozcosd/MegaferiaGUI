@@ -10,13 +10,22 @@ import java.util.HashSet;
 
 public class StandPurchaseController {
 
-    public Response purchaseStands(long[] standIds, String[] publisherNits) {
-        if (standIds == null || standIds.length == 0) {
+    public Response purchaseStands(String[] standIdTexts, String[] publisherNits) {
+        if (standIdTexts == null || standIdTexts.length == 0) {
             return new Response("Debe seleccionar al menos un stand", Status.BAD_REQUEST);
         }
 
         if (publisherNits == null || publisherNits.length == 0) {
             return new Response("Debe seleccionar al menos una editorial", Status.BAD_REQUEST);
+        }
+
+        long[] standIds = new long[standIdTexts.length];
+        try {
+            for (int i = 0; i < standIdTexts.length; i++) {
+                standIds[i] = Long.parseLong(standIdTexts[i]);
+            }
+        } catch (NumberFormatException e) {
+            return new Response("Los IDs de los stands deben ser números válidos", Status.BAD_REQUEST);
         }
 
         HashSet<Long> uniqueStandIds = new HashSet<>();

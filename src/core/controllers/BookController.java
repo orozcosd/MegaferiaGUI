@@ -17,9 +17,38 @@ import java.util.HashSet;
 
 public class BookController {
 
-    public Response createPrintedBook(String title, long[] authorIds, String isbn, String genre,
-                                     String format, double value, String publisherNit,
-                                     int pages, int copies) {
+    public Response createPrintedBook(String title, String[] authorIdTexts, String isbn, String genre,
+                                     String format, String valueText, String publisherNit,
+                                     String pagesText, String copiesText) {
+        double value;
+        int pages;
+        int copies;
+
+        try {
+            value = Double.parseDouble(valueText);
+        } catch (NumberFormatException e) {
+            return new Response("El precio debe ser un número válido", Status.BAD_REQUEST);
+        }
+
+        try {
+            pages = Integer.parseInt(pagesText);
+        } catch (NumberFormatException e) {
+            return new Response("El número de páginas debe ser un número válido", Status.BAD_REQUEST);
+        }
+
+        try {
+            copies = Integer.parseInt(copiesText);
+        } catch (NumberFormatException e) {
+            return new Response("El número de copias debe ser un número válido", Status.BAD_REQUEST);
+        }
+
+        long[] authorIds;
+        try {
+            authorIds = parseAuthorIds(authorIdTexts);
+        } catch (NumberFormatException e) {
+            return new Response("Los IDs de los autores deben ser números válidos", Status.BAD_REQUEST);
+        }
+
         Response validation = validateCommonBookFields(title, authorIds, isbn, genre, format, value, publisherNit);
         if (validation.getStatus() != Status.OK) {
             return validation;
@@ -46,9 +75,24 @@ public class BookController {
         }
     }
 
-    public Response createDigitalBook(String title, long[] authorIds, String isbn, String genre,
-                                     String format, double value, String publisherNit,
+    public Response createDigitalBook(String title, String[] authorIdTexts, String isbn, String genre,
+                                     String format, String valueText, String publisherNit,
                                      String hyperlink) {
+        double value;
+
+        try {
+            value = Double.parseDouble(valueText);
+        } catch (NumberFormatException e) {
+            return new Response("El precio debe ser un número válido", Status.BAD_REQUEST);
+        }
+
+        long[] authorIds;
+        try {
+            authorIds = parseAuthorIds(authorIdTexts);
+        } catch (NumberFormatException e) {
+            return new Response("Los IDs de los autores deben ser números válidos", Status.BAD_REQUEST);
+        }
+
         Response validation = validateCommonBookFields(title, authorIds, isbn, genre, format, value, publisherNit);
         if (validation.getStatus() != Status.OK) {
             return validation;
@@ -73,9 +117,38 @@ public class BookController {
         }
     }
 
-    public Response createAudiobook(String title, long[] authorIds, String isbn, String genre,
-                                   String format, double value, String publisherNit,
-                                   int duration, long narratorId) {
+    public Response createAudiobook(String title, String[] authorIdTexts, String isbn, String genre,
+                                   String format, String valueText, String publisherNit,
+                                   String durationText, String narratorIdText) {
+        double value;
+        int duration;
+        long narratorId;
+
+        try {
+            value = Double.parseDouble(valueText);
+        } catch (NumberFormatException e) {
+            return new Response("El precio debe ser un número válido", Status.BAD_REQUEST);
+        }
+
+        try {
+            duration = Integer.parseInt(durationText);
+        } catch (NumberFormatException e) {
+            return new Response("La duración debe ser un número válido", Status.BAD_REQUEST);
+        }
+
+        try {
+            narratorId = Long.parseLong(narratorIdText);
+        } catch (NumberFormatException e) {
+            return new Response("El ID del narrador debe ser un número válido", Status.BAD_REQUEST);
+        }
+
+        long[] authorIds;
+        try {
+            authorIds = parseAuthorIds(authorIdTexts);
+        } catch (NumberFormatException e) {
+            return new Response("Los IDs de los autores deben ser números válidos", Status.BAD_REQUEST);
+        }
+
         Response validation = validateCommonBookFields(title, authorIds, isbn, genre, format, value, publisherNit);
         if (validation.getStatus() != Status.OK) {
             return validation;
@@ -169,6 +242,17 @@ public class BookController {
             authors.add((Author) PersonStorage.getInstance().getPerson(authorId));
         }
         return authors;
+    }
+
+    private long[] parseAuthorIds(String[] authorIdTexts) throws NumberFormatException {
+        if (authorIdTexts == null) {
+            return new long[0];
+        }
+        long[] authorIds = new long[authorIdTexts.length];
+        for (int i = 0; i < authorIdTexts.length; i++) {
+            authorIds[i] = Long.parseLong(authorIdTexts[i]);
+        }
+        return authorIds;
     }
 
 }

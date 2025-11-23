@@ -42,7 +42,15 @@ public class QueryController {
         return new Response("Libros obtenidos exitosamente", Status.OK, books);
     }
 
-    public Response getBooksByAuthor(long authorId) {
+    public Response getBooksByAuthor(String authorIdText) {
+        long authorId;
+
+        try {
+            authorId = Long.parseLong(authorIdText);
+        } catch (NumberFormatException e) {
+            return new Response("El ID del autor debe ser un número válido", Status.BAD_REQUEST);
+        }
+
         Author author = (Author) PersonStorage.getInstance().getPerson(authorId);
 
         if (author == null) {

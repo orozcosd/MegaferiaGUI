@@ -13,7 +13,15 @@ import java.util.Comparator;
 
 public class PersonController {
 
-    public Response createAuthor(long id, String firstname, String lastname) {
+    public Response createAuthor(String idText, String firstname, String lastname) {
+        long id;
+
+        try {
+            id = Long.parseLong(idText);
+        } catch (NumberFormatException e) {
+            return new Response("El ID debe ser un número válido", Status.BAD_REQUEST);
+        }
+
         if (!Validator.isValidId(id)) {
             return new Response("El ID de la persona debe ser >= 0 y tener como máximo 15 dígitos", Status.BAD_REQUEST);
         }
@@ -40,7 +48,15 @@ public class PersonController {
         }
     }
 
-    public Response createManager(long id, String firstname, String lastname) {
+    public Response createManager(String idText, String firstname, String lastname) {
+        long id;
+
+        try {
+            id = Long.parseLong(idText);
+        } catch (NumberFormatException e) {
+            return new Response("El ID debe ser un número válido", Status.BAD_REQUEST);
+        }
+
         if (!Validator.isValidId(id)) {
             return new Response("El ID de la persona debe ser >= 0 y tener como máximo 15 dígitos", Status.BAD_REQUEST);
         }
@@ -67,7 +83,15 @@ public class PersonController {
         }
     }
 
-    public Response createNarrator(long id, String firstname, String lastname) {
+    public Response createNarrator(String idText, String firstname, String lastname) {
+        long id;
+
+        try {
+            id = Long.parseLong(idText);
+        } catch (NumberFormatException e) {
+            return new Response("El ID debe ser un número válido", Status.BAD_REQUEST);
+        }
+
         if (!Validator.isValidId(id)) {
             return new Response("El ID de la persona debe ser >= 0 y tener como máximo 15 dígitos", Status.BAD_REQUEST);
         }

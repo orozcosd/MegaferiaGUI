@@ -12,7 +12,15 @@ import java.util.Comparator;
 
 public class PublisherController {
 
-    public Response createPublisher(String nit, String name, String address, long managerId) {
+    public Response createPublisher(String nit, String name, String address, String managerIdText) {
+        long managerId;
+
+        try {
+            managerId = Long.parseLong(managerIdText);
+        } catch (NumberFormatException e) {
+            return new Response("El ID del gerente debe ser un número válido", Status.BAD_REQUEST);
+        }
+
         if (!Validator.isValidNit(nit)) {
             return new Response("El NIT de la editorial debe seguir el formato XXX.XXX.XXX-X", Status.BAD_REQUEST);
         }
